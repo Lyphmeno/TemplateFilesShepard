@@ -2,9 +2,6 @@
 #-----------------------------------------------------------------------------#
 #----------------------------------Shepard------------------------------------#
 #-----------------------------------------------------------------------------#
-
-# TEST HLEVI
-
 export PATH="$HOME/.local/bin:$PATH"
 export LIBGL_ALWAYS_INDIRECT=1
 # COLORS
@@ -56,34 +53,31 @@ rsource()
 	fi
 }
 
-upsh()
-{
-	oldir=$(echo $PWD)
-	cd $HOME/42/Ghub/Usefull/
-	rt
-	. $HOME/42/Ghub/Usefull/CreateAll.sh Y
-	if [ $? -eq 0 ]; then
-		echo -e "${PEACH}---- Updating current RC ${GREEN}SUCCEEDED ${PEACH}----${NC}"
-	else
-		echo -e "${PEACH}---- Updating current RC ${RED}FAILED ${PEACH}----${NC}"
-	fi
-	cd "${oldir}"
+push_to_submodule() {
+    local submodule_path=$1
+    cd "$GITHUB_DIR"
+    git -C "$submodule_path" add -A
+    git -C "$submodule_path" commit -m "$*"
+    git -C "$submodule_path" push
 }
 
-gupsh()
-{
-	oldir=$(echo $PWD)
-	cd $HOME/42/Ghub/Usefull/
-	rt
-	. $HOME/42/Ghub/Usefull/CreateAll.sh
-	if [ $? -eq 0 ]; then
-		echo -e "${PEACH}---- Updating current RC ${GREEN}SUCCEEDED${PEACH} ----${NC}"
-		cd $HOME/42/Ghub/Usefull
-		fullgit $*
-	else
-		echo -e "${PEACH}---- Updating current RC ${RED}FAILED${PEACH} ----${NC}"
-	fi
-	cd "${oldir}"
+upshepard() {
+    push_to_submodule "Templates/TemplateFilesShepard"
+}
+
+uputu() {
+    push_to_submodule "Templates/TemplateFilesUtu"
+}
+
+upatsuko() {
+    push_to_submodule "Templates/TemplateFilesAtsuko"
+}
+
+upall() {
+    upshepard
+    uputu
+    upatsuko
+    fullgit "$@"
 }
 
 # 	Template Generation
@@ -204,7 +198,7 @@ gclyf()
 {
 	echo -e "${PEACH}------------------------------------------------------------${NC}"
 	printf ${ORANGE}
-	git clone "git@github.com:Lyfmeno/$1.git" --recursive
+	git clone --recursive "git@github.com:Lyfmeno/$1.git" 
 	printf ${NC}
 	echo -e "${PEACH}------------------------------------------------------------${NC}"
 }
