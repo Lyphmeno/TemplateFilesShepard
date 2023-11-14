@@ -2,6 +2,7 @@
 #-----------------------------------------------------------------------------#
 #----------------------------------Shepard------------------------------------#
 #-----------------------------------------------------------------------------#
+# ceci est un autre test
 #!/bin/sh
 export PATH="$HOME/.local/bin:$PATH"
 export LIBGL_ALWAYS_INDIRECT=1
@@ -58,10 +59,10 @@ rsource()
 
 get_github_credentials_and_title() {
     # Prompt for password without echoing it to the terminal
-    read -s "Enter your GitHub password: " GITHUB_PASSWORD
-    echo  # Move to a new line after password input
+    echo "Enter your GitHub password: " 
+    read GITHUB_PASSWORD
 
-    echo "Enter the pull request title:"
+    echo "Enter the pull request title: "
     read PR_TITLE
 }
 
